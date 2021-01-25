@@ -38,13 +38,21 @@ const Reservation = ({ history }) => {
   const onChangeTextArea = useCallback(e => {
     const limitText = setTextByLimitByte(e.target.value, MAX_BYTE);
     setTextArea(limitText);
-    setProgress(INIT_PERCENT * 3);
-  })
+    if (limitText) {
+      setProgress(INIT_PERCENT * 3);
+    } else {
+      setProgress(INIT_PERCENT * 2);
+    }
+  });
 
   const onClicTimeHandle = useCallback(e => {
     setSelectionTime(e.target.value);
     setIsActiveTextArea(false);
-    setProgress(INIT_PERCENT * 2);
+    if (textArea) {
+      setProgress(INIT_PERCENT * 3);
+    } else {
+      setProgress(INIT_PERCENT * 2);
+    }
     setTimeout(() => {
       textAreaRef.current.focus();
     }, 10);
