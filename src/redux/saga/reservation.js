@@ -1,4 +1,4 @@
-import { delay, put, takeLatest, all, fork, throttle, call } from 'redux-saga/effects';
+import { put, takeLatest, all, fork } from 'redux-saga/effects';
 import {
   ADD_RESERVATION_REQUEST,
   ADD_RESERVATION_ERROR,

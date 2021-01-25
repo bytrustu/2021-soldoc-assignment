@@ -29,7 +29,7 @@ const ReservationConfirm = ({ history }) => {
   return (
     <Main>
       <Logo src={logo} />
-      <Title title="진료 예약 확인" text="진료 날짜 예약" />
+      <Title title="진료 예약확인" text="진료 날짜 예약" />
       <Label title="진료 예약일 및 시간" link="/" linkText="수정하기">
         <TextInput value={`${getDate(data.date)}, ${data.time}`} isReadonly={true} />
       </Label>
