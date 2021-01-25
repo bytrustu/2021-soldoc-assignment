@@ -12,4 +12,4 @@ const DateText = ({date}) => {
   );
 };
 
-export default DateText;
+export default React.memo(DateText);

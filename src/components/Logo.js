@@ -12,4 +12,4 @@ const logo = ({src}) => {
   );
 };
 
-export default logo;
+export default React.memo(logo);

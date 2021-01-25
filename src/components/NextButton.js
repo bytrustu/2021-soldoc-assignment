@@ -19,4 +19,4 @@ const TimeButton = ({ onClickHandle }) => {
   );
 };
 
-export default TimeButton;
+export default React.memo(TimeButton);

@@ -16,9 +16,9 @@ const StyleText = styled.span`
   letter-spacing: 0;
   color: #b0b0b0;
   margin-left: 5px;
-`
+`;
 
-const Title = ({title, text}) => {
+const Title = ({ title, text }) => {
   return (
     <div>
       <StyleTitle>{title}</StyleTitle>
@@ -27,4 +27,4 @@ const Title = ({title, text}) => {
   );
 };
 
-export default Title;
+export default React.memo(Title);

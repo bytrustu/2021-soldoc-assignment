@@ -47,13 +47,21 @@ const StyleTextArea = styled.textarea`
 `;
 
 
-const TextArea = ({ value = '', isDisabled = true, placeholder = '', onChange, maxByte }) => {
-  const currentByte = getByte(value);
+const TextArea = ({
+                    value = '',
+                    isDisabled = true,
+                    placeholder = '',
+                    onChange, maxByte,
+                    targetRef,
+                    isViewByte=false,
+                    isReadonly=false
+}) => {
+  const currentByte = isViewByte && getByte(value);
   return (
     <StyleTextAreaWrap>
-      <StyleTextArea disabled={isDisabled} placeholder={placeholder} onChange={onChange} value={value} />
+      <StyleTextArea disabled={isDisabled} placeholder={placeholder} onChange={onChange} value={value} readOnly={isReadonly} ref={targetRef}/>
       {
-        !isDisabled &&
+        !isDisabled && isViewByte &&
         <StyleByteText>
           {currentByte}/{maxByte} byte
         </StyleByteText>
@@ -62,4 +70,4 @@ const TextArea = ({ value = '', isDisabled = true, placeholder = '', onChange, m
   );
 };
 
-export default TextArea;
+export default React.memo(TextArea);

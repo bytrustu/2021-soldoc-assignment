@@ -17,12 +17,12 @@ const StyleConfirmButton = styled.button`
   cursor: pointer;
 `;
 
-const ConfirmButton = ({text, onClickHandle}) => {
+const ConfirmButton = ({text, onClick}) => {
   return (
-    <StyleConfirmButton onClick={onClickHandle}>
+    <StyleConfirmButton onClick={onClick}>
       {text}
     </StyleConfirmButton>
   );
 };
 
-export default ConfirmButton;
+export default React.memo(ConfirmButton);

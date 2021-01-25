@@ -15,7 +15,7 @@ const StyleTimeButton = styled.button`
   color: ${(props) =>
           props.active ? 700 : 500};
   letter-spacing: 0;
-`
+`;
 
 const TimeButton = ({ text, onClickHandle, active }) => {
   return (

@@ -1,9 +1,19 @@
 import React from 'react';
-// import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './components/App';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import store from './redux/store/configureStore';
+
+const Root = () => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <GlobalStyle />
+      <App />
+    </BrowserRouter>
+  </Provider>
+);
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -18,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
     overflow: hidden;
     background-color: #E5E5E5;
   }
-  
+
   button {
     &:focus {
       outline: unset;
@@ -34,12 +44,5 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
   }
 `;
-
-const Root = () => (
-  <BrowserRouter>
-    <GlobalStyle />
-    <App />
-  </BrowserRouter>
-);
 
 export default Root;

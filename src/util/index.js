@@ -33,3 +33,9 @@ export const setTextByLimitByte = (str = '', limit) => {
   }
   return str;
 };
+
+export const getDate = (str) => {
+  const date = new Date(str);
+  const zero = num => num < 10 && num >= 0 ? "0" + num : num;
+  return `${date.getFullYear()}년 ${zero(date.getMonth() + 1)}월 ${zero(date.getDate())}일`;
+}

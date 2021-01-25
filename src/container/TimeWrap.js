@@ -5,7 +5,7 @@ const StyleTimeWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   height: 90px;
-`
+`;
 
 const TimeWrap = ({ children }) => {
   return (

@@ -8,6 +8,8 @@ const StyleProgress = styled.div`
   left: 0;
   top: 0;
   background: linear-gradient(90deg, #50A0E0 29.87%, #A4D4FA 100%);
+  animation: 1s ease-out;
+
 `;
 
 const progress = ({ value = 0 }) => {
@@ -16,4 +18,4 @@ const progress = ({ value = 0 }) => {
   );
 };
 
-export default progress;
+export default React.memo(progress);

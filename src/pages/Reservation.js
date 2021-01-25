@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Main from '../container/Main';
 import logo from '../static/images/logo.svg';
 import {
@@ -16,35 +16,80 @@ import { Link } from 'react-router-dom';
 import TimeWrap from '../container/TimeWrap';
 import * as util from '../util';
 import { setTextByLimitByte } from '../util';
+import { useDispatch, useSelector } from 'react-redux';
+import { addReservation, clearReservation } from '../redux/reducers/reservation';
 
-const timeRange = util.generateTimeRange('16:30', '19:30');
+const timeRange = util.generateTimeRange('18:30', '21:30');
+const allTimeRange = util.generateTimeRange('09:00', '21:00');
+const MAX_BYTE = 120;
+const INIT_PERCENT = 33.33;
+const DATE_TEXT = '08 / 15 / 2020';
 
-const Reservation = () => {
-  const MAX_BYTE = 120;
+const Reservation = ({ history }) => {
+  const dispatch = useDispatch();
+  const { success, data } = useSelector(state => state.reservation);
+
   const [selectionTime, setSelectionTime] = useState('');
   const [isActiveTextArea, setIsActiveTextArea] = useState(true);
   const [textArea, setTextArea] = useState('');
+  const [progress, setProgress] = useState(INIT_PERCENT);
+
+  const textAreaRef = useRef();
+
   const onChangeTextArea = e => {
     const limitText = setTextByLimitByte(e.target.value, MAX_BYTE);
     setTextArea(limitText);
+    setProgress(INIT_PERCENT * 3);
   };
 
   const onClicTimeHandle = useCallback((e) => {
     setSelectionTime(e.target.value);
     setIsActiveTextArea(false);
+    setProgress(INIT_PERCENT * 2);
+    setTimeout(() => {
+      textAreaRef.current.focus();
+    }, 10);
   });
 
   const onClickNextHandle = useCallback(() => {
 
   });
 
+  const onClicConfirmHandle = () => {
+    dispatch(addReservation({ time: selectionTime, more: textArea, date: DATE_TEXT }));
+  };
+
+  useEffect(() => {
+    const { time, more } = data;
+    if (time) {
+      setSelectionTime(time);
+      setIsActiveTextArea(false);
+      setProgress(INIT_PERCENT * 2);
+    }
+    if (more) {
+      setTextArea(more);
+      setProgress(INIT_PERCENT * 3);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (success) {
+      dispatch(clearReservation());
+      if (allTimeRange.includes(data.time)) {
+        history.push('/confirm');
+      } else {
+        history.push('/blank');
+      }
+    }
+  }, [success]);
+
   return (
     <Main>
-      <Progress value={33.3} />
+      <Progress value={progress} />
       <Logo src={logo} />
       <Title title="진료 예약하기" text="진료 날짜 예약" />
       <Label title="날짜">
-        <DateText date="08 / 15 / 2020" />
+        <DateText date={DATE_TEXT} />
       </Label>
       <Label title="시간">
         <TimeWrap>
@@ -61,11 +106,12 @@ const Reservation = () => {
           value={textArea}
           onChange={onChangeTextArea}
           maxByte={MAX_BYTE}
+          targetRef={textAreaRef}
+          isViewByte={true}
         />
       </Label>
       {
-        selectionTime && <ConfirmButton text="예약" onClickHandle={() => {
-        }} />
+        selectionTime && <ConfirmButton text="예약" onClick={onClicConfirmHandle} />
       }
     </Main>
   );
