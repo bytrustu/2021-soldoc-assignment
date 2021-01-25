@@ -40,7 +40,7 @@ const ReservationBlank = ({ history }) => {
     <Main>
       <Progress value={progress} />
       <Logo src={logo} />
-      <Title title="진료 예약 확인" text="진료 날짜 예약" />
+      <Title title="진료 예약 하기" text="진료 날짜 예약" />
       <Label title="날짜">
         <DateText date={DATE_TEXT} />
       </Label>
@@ -52,10 +52,7 @@ const ReservationBlank = ({ history }) => {
       <Label title="추가 사항 (옵션)">
         <TextArea
           placeholder="평소 앓고 있던 질병, 또는 처방전 솔닥 닥터가 알아야 할 내용이 있다면 여기에 적어주세요."
-          isDisabled={false}
-          value={data.more}
-          isViewByte={false}
-          isReadonly={true}
+          isDisabled={true}
         />
       </Label>
     </Main>

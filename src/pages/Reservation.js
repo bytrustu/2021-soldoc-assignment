@@ -12,7 +12,6 @@ import {
   ConfirmButton,
   TextArea,
 } from '../components';
-import { Link } from 'react-router-dom';
 import TimeWrap from '../container/TimeWrap';
 import * as util from '../util';
 import { setTextByLimitByte } from '../util';
@@ -36,13 +35,13 @@ const Reservation = ({ history }) => {
 
   const textAreaRef = useRef();
 
-  const onChangeTextArea = e => {
+  const onChangeTextArea = useCallback(e => {
     const limitText = setTextByLimitByte(e.target.value, MAX_BYTE);
     setTextArea(limitText);
     setProgress(INIT_PERCENT * 3);
-  };
+  })
 
-  const onClicTimeHandle = useCallback((e) => {
+  const onClicTimeHandle = useCallback(e => {
     setSelectionTime(e.target.value);
     setIsActiveTextArea(false);
     setProgress(INIT_PERCENT * 2);
